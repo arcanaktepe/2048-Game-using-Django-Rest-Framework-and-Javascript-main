@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+ 
+ web:
+  container_name: core_shareclub
+  build: .
+  restart: always
+  env_file: ./Game2048/.env
+  volumes:
+    - .:/ShareClub
+    - static_volume:/ShareClub/static
+  depends_on:
+    - db  
+  ports:
+    - 80:8000
+ 
+ 
+ 
+volumes:
+ static_volume:
+ postgres_data:
+ nginx_secrets:

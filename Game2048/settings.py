@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 import django_heroku
 from pathlib import Path
+from environ import Env
+
+env = Env()
+env.read_env(env_file='Game2048/.env')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +31,7 @@ SECRET_KEY = 'django-insecure-95@$d92yp$_+c)@a746r211dpsusajq8=c&!=yx5r$%g)5!5b%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -76,12 +80,14 @@ WSGI_APPLICATION = 'Game2048.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+   'default': {
+       'ENGINE': env('DB_ENGINE', default = 'django.db.backends.sqlite3'),
+       'NAME': env('DB_NAME', default='db.sqlite3'),
+   }
 }
+
 
 
 # Password validation
